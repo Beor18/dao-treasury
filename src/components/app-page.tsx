@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -12,108 +13,12 @@ import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PiggyBank, Users, FileText, TrendingUp } from "lucide-react";
 
-// Mocked data
-const treasurySummary = {
-  totalBalance: 1234567,
-  balanceChange: 20.1,
-  pendingRequests: 23,
-  requestsChange: 180.1,
-  activeProposals: 12,
-  proposalsChange: 19,
-  activeMembers: 573,
-  membersChange: 201,
-};
-
-const mockRequests = [
-  {
-    id: 1,
-    amount: 50000,
-    recipient: "0x1234...5678",
-    purpose: "Marketing Campaign",
-    status: "pending",
-    createdAt: "2023-06-01",
-  },
-  {
-    id: 2,
-    amount: 75000,
-    recipient: "0x8765...4321",
-    purpose: "Product Development",
-    status: "approved",
-    createdAt: "2023-05-28",
-  },
-  {
-    id: 3,
-    amount: 30000,
-    recipient: "0x2468...1357",
-    purpose: "Community Event",
-    status: "denied",
-    createdAt: "2023-05-25",
-  },
-  {
-    id: 4,
-    amount: 100000,
-    recipient: "0x1357...2468",
-    purpose: "Security Audit",
-    status: "pending",
-    createdAt: "2023-06-02",
-  },
-];
-
-const mockProposals = [
-  {
-    id: 1,
-    title: "Increase development fund by 10%",
-    forVotes: 750000,
-    againstVotes: 250000,
-    totalVotes: 1000000,
-    status: "active",
-  },
-  {
-    id: 2,
-    title: "Fund new marketing campaign",
-    forVotes: 600000,
-    againstVotes: 400000,
-    totalVotes: 1000000,
-    status: "active",
-  },
-  {
-    id: 3,
-    title: "Implement new governance model",
-    forVotes: 800000,
-    againstVotes: 200000,
-    totalVotes: 1000000,
-    status: "ended",
-  },
-];
-
-const mockReputationData = [
-  {
-    id: 1,
-    name: "Alice",
-    avatar: "/placeholder.svg?height=40&width=40",
-    reputation: 950,
-    level: "Gold",
-    recentActivity: "Proposed successful marketing campaign",
-  },
-  {
-    id: 2,
-    name: "Bob",
-    avatar: "/placeholder.svg?height=40&width=40",
-    reputation: 720,
-    level: "Silver",
-    recentActivity: "Voted on 5 proposals",
-  },
-  {
-    id: 3,
-    name: "Charlie",
-    avatar: "/placeholder.svg?height=40&width=40",
-    reputation: 510,
-    level: "Bronze",
-    recentActivity: "Contributed to development",
-  },
-];
-
-export function AppPage() {
+export function AppPage({
+  treasurySummary,
+  mockRequests,
+  mockProposals,
+  mockReputationData,
+}: any) {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -194,7 +99,7 @@ export function AppPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockRequests.map((request) => (
+            {mockRequests.map((request: any) => (
               <div key={request.id} className="flex items-center">
                 <div className="flex-1 space-y-1">
                   <p className="text-sm font-medium leading-none">
@@ -208,7 +113,7 @@ export function AppPage() {
                 <Badge
                   variant={
                     request.status === "approved"
-                      ? "success"
+                      ? "default"
                       : request.status === "denied"
                       ? "destructive"
                       : "secondary"
@@ -232,7 +137,7 @@ export function AppPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockProposals.map((proposal) => (
+            {mockProposals.map((proposal: any) => (
               <div key={proposal.id} className="space-y-2">
                 <div className="flex justify-between">
                   <p className="text-sm font-medium">{proposal.title}</p>
@@ -281,7 +186,7 @@ export function AppPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockReputationData.map((user) => (
+            {mockReputationData.map((user: any) => (
               <div key={user.id} className="flex items-center">
                 <Avatar className="h-9 w-9">
                   <AvatarImage src={user.avatar} alt={user.name} />
