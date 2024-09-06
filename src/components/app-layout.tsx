@@ -1,85 +1,88 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Bell, ChevronDown, LayoutDashboard, LogOut, Menu, PiggyBank, Search, Settings, Shield, User, Users, Vote } from 'lucide-react'
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Bell,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  PiggyBank,
+  Search,
+  Settings,
+  Shield,
+  User,
+  Users,
+  Vote,
+} from "lucide-react";
 
 const sidebarItems = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Treasury', href: '/treasury', icon: PiggyBank },
-  { name: 'Voting', href: '/voting', icon: Vote },
-  { name: 'Risk Control', href: '/risk-control', icon: Shield },
-  { name: 'Reputation', href: '/reputation', icon: Users },
-  { name: 'Settings', href: '/settings', icon: Settings },
-]
+  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Treasury", href: "/treasury", icon: PiggyBank },
+  { name: "Voting", href: "/voting", icon: Vote },
+  { name: "Risk Control", href: "/risk-control", icon: Shield },
+  { name: "Reputation", href: "/reputation", icon: Users },
+  { name: "Settings", href: "/settings", icon: Settings },
+];
 
-export function AppLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const pathname = usePathname()
+export function AppLayout({ children }: { children: React.ReactNode }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="flex h-screen flex-col">
-      {/* Navbar */}
+      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
-          <div className="mr-4 hidden md:flex">
-            <Link href="/" className="mr-6 flex items-center space-x-2">
+        <div className=" flex h-14 items-center justify-between mx-auto px-8">
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              className="px-2 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+            <Link href="/" className="flex items-center space-x-2">
               <PiggyBank className="h-6 w-6" />
-              <span className="hidden font-bold sm:inline-block">
-                DAO Treasury
-              </span>
+              <span className="font-bold">DAO Treasury</span>
             </Link>
-            <nav className="flex items-center space-x-6 text-sm font-medium">
-              {sidebarItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={pathname === item.href ? "text-foreground" : "text-foreground/60"}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
           </div>
-          <Button
-            variant="ghost"
-            className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-            onClick={() => setIsSidebarOpen(true)}
-          >
-            <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle Menu</span>
-          </Button>
-          <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <div className="w-full flex-1 md:w-auto md:flex-none">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder="Search..."
-                    className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-                  />
-                </div>
-              </form>
-            </div>
+          <div className="flex items-center space-x-4">
+            <form>
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search..."
+                  className="pl-8 w-[200px] md:w-[300px]"
+                />
+              </div>
+            </form>
             <Button variant="ghost" size="icon" className="mr-2">
-              <Bell className="h-4 w-4" />
+              <Bell className="h-5 w-5" />
               <span className="sr-only">Notifications</span>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full"
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
                     <AvatarFallback>U</AvatarFallback>
@@ -138,7 +141,7 @@ export function AppLayout({
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full">
           {/* Sidebar for desktop */}
-          <aside className="hidden w-[200px] flex-col md:flex">
+          <aside className="hidden w-64 flex-col border-r bg-gray-100/40 md:flex">
             <ScrollArea className="flex-1">
               <div className="space-y-4 py-4">
                 <div className="px-3 py-2">
@@ -163,11 +166,9 @@ export function AppLayout({
           </aside>
 
           {/* Main content area */}
-          <main className="flex-1 overflow-y-auto p-8">
-            {children}
-          </main>
+          <main className="flex-1 overflow-y-auto p-8">{children}</main>
         </div>
       </div>
     </div>
-  )
+  );
 }
