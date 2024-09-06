@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -113,14 +114,14 @@ const mockBalanceHistory = [
 ];
 
 export function AppTreasuryPage() {
-  const [activeRequest, setActiveRequest] = useState(null);
+  const [activeRequest, setActiveRequest] = useState<any>(null);
 
-  const handleApprove = (id) => {
+  const handleApprove = (id: any) => {
     console.log(`Approving request ${id}`);
     // Implement actual approval logic here
   };
 
-  const handleDeny = (id) => {
+  const handleDeny = (id: any) => {
     console.log(`Denying request ${id}`);
     // Implement actual denial logic here
   };
@@ -207,7 +208,7 @@ export function AppTreasuryPage() {
                       <Badge
                         variant={
                           request.status === "approved"
-                            ? "success"
+                            ? "default"
                             : request.status === "denied"
                             ? "destructive"
                             : "secondary"
